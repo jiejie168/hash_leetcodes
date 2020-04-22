@@ -22,25 +22,28 @@ Output: []
 """
 class Solution:
     def findSubstring(self, s: str, words):
+
         if s is None or len(words)==0:
             return []
-        result=[]
         m=len(words)
         n=len(words[0])
-
-        dic=dict.fromkeys(words,0)
+        result=[]
+        # creat a dictionary, with value starts with 0
+        # estimate the number of each element in words
+        hash_t=dict.fromkeys(words,0)
         for elem in words:
-            dic[elem]=dic[elem]+1
-
-        for i in range(len(s)-m*n+1):
-            currt=dic.copy()
+            hash_t[elem]+=1
+        for i in range(len(s)-n*m+1):
+            hash_copy=hash_t.copy()
             k=m
-            j=i
+            j=i # i in big loop should be constant in the smaller loop
             while k>0:
-                str_t=s[j:j+n]
-                if str_t not in currt or currt[str_t]<1:
+                tmp=s[j:j+n]
+                if tmp not in hash_copy or hash_copy[tmp]<1:
+                    # under this condition, no substring, so break to the next big loop.
                     break
-                currt[str_t]=currt[str_t]-1
+                else:
+                    hash_copy[tmp]=hash_copy[tmp]-1
                 k-=1
                 j+=n
             if k==0:
@@ -51,14 +54,11 @@ class Solution:
 # words = ["word","good","best","word"]
 # s = "barfoothefoobarman"
 # words = ["foo","bar"]
-
 s="wordgoodgoodgoodbestword"
 words=["word","good","best","good"]
-
 solution=Solution()
 ans=solution.findSubstring(s,words)
 print (ans)
-
 
 # L=["word","abc","word"]
 # Dict = dict.fromkeys(L,0)
