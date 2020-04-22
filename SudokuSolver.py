@@ -33,11 +33,12 @@ class Solution:
         else:
             row,col=find
         for i in range(1,10):
+            i=str(i)
             if self.valid(board,i,(row,col)):
                 board[row][col]=i
                 if self.solveSudoku(board):
                     return True
-                board[row][col]=0
+                board[row][col]="."
         return False
 
     def valid(self,bo,num,pos):
@@ -85,6 +86,9 @@ class Solution:
                 if bo[i][j]== ".":
                     return (i,j)  # row, column
         return None
+
+    def str_int(self,bo):
+        pass
 
 solution=Solution()
 board=[["5","3",".",".","7",".",".",".","."],
