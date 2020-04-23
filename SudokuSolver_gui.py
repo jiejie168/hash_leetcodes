@@ -6,7 +6,6 @@ GUI display for the game of sudoku
 import pygame
 from SudokuSolver import Solution
 import time
-# pygame.font.inti()
 pygame.init()
 
 class Grid:
