@@ -9,7 +9,6 @@ import time
 pygame.init()
 
 class Grid:
-
     board=[[5,3,0,0,7,0,0,0,0],
        [6,0,0,1,9,5,0,0,0],
        [0,9,8,0,0,0,0,6,0],
@@ -27,7 +26,7 @@ class Grid:
         self.height=height
         self.model=None
         self.selected=None
-        self.cubes=[[Cube(self.board[i][j],i,j,width,height,) for j in range(cols)] for i in range(rows) ]
+        self.cubes=[[Cube(self.board[i][j],i,j,width,height) for j in range(cols)] for i in range(rows) ]
 
     def update_model(self):
         self.model=[[self.cubes[i][j].value for j in range(self.cols)] for i in range(self.rows)]
@@ -46,9 +45,11 @@ class Grid:
                 self.cubes[row][col].set_temp(0)
                 self.update_model()
                 return False
+
     def sketch(self,val):
         row,col=self.selected
         self.cubes[row][col].set_temp(val)
+
     def draw(self,win):
         # draw Grid lines
         gap=self.width/9
@@ -102,7 +103,7 @@ class Grid:
 class Cube:
     rows=9
     cols=9
-    def __init__(self,value, row, col,width,height):
+    def __init__(self, value, row, col, width, height):
         self.value=value
         self.temp=0
         self.row=row
@@ -110,6 +111,7 @@ class Cube:
         self.width=width
         self.height=height
         self.selected=False
+
     def draw(self,win):
         fnt=pygame.font.SysFont("comicsans",40)
 
@@ -126,7 +128,6 @@ class Cube:
 
         if self.selected:
             pygame.draw.rect(win,(255,0,0),(x,y,gap,gap),3)
-
 
     def  set(self,val):
         self.value=val
@@ -150,7 +151,6 @@ def format_time(secs):
     sec=secs%60
     minute=secs//60
     hour=minute//60
-
     mat=" " + str(minute) +":" +str(sec)
     return mat
 
@@ -217,16 +217,3 @@ def main():
 
 main()
 pygame.quit()
-
-
-
-
-
-
-
-
-
-
-
-
-
