@@ -38,11 +38,38 @@ class Solution:
         res.append(root.val)
 
     def postorderTraversal_2(self,root):
-        pass
+        # use the iterative method
+        # adopt the reverse_postorderTraversal:  pseudo code of recursive.
+        # rev_postorder(root):
+        #     if root is None:
+        #         return
+        #     print (node.val)
+        #     rev_postorder(root-> right)
+        #     rev_postorder(root-> left)
 
+        if root is None:
+            return
+        stack1=[] # initialize stacks
+        stack2=[] # stack for store the reversed results
+        stack1.append(root)
+        while stack1:
+            # iterative for the reverse-postorder
+            curr=stack1.pop()
+            stack2.append(curr.val)
+            if curr.left !=None:
+                # be careful! the stack is LIFO, so last search right node in reverse,
+                # equal to fist push left node in stack
+                stack1.append(curr.left)
+            if curr.right!=None:
+                stack1.append(curr.right)
+        while stack2:
+            # reversed the output of stack2
+            node=stack2.pop()
+            stack1.append(node)
+        return stack1
 solution=Solution()
 root=TreeNode(1)
 root.right=TreeNode(2)
 root.right.left=TreeNode(3)
-ans=solution.postorderTraversal(root)
+ans=solution.postorderTraversal_2(root)
 print (ans)
