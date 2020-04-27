@@ -39,7 +39,7 @@ class Solution:
 
             # check if the sums is already seen in hash table
             # return False if it has been seen.
-            print (sums)
+            # print (sums)
             if sums in hs_seen:
                 return False
             hs_seen.add(sums)
